@@ -14,11 +14,16 @@ import Prelude  ( fromIntegral )
 
 -- base --------------------------------
 
+import Data.Eq        ( Eq )
 import Data.Function  ( ($), flip )
 import Data.Maybe     ( Maybe( Just ) )
 import Data.String    ( String )
 import System.Exit    ( ExitCode )
 import System.IO      ( IO )
+
+-- hashable ----------------------------
+
+import Data.Hashable  ( Hashable )
 
 -- more-unicode ------------------------
 
@@ -39,6 +44,10 @@ import Test.Tasty.HUnit  ( (@=?), testCase )
 -- tasty-plus --------------------------
 
 import TastyPlus  ( runTestsP, runTestsReplay, runTestTree )
+
+-- unordered-containers ----------------
+
+import Data.HashMap.Strict  ( HashMap, (!?) )
 
 ------------------------------------------------------------
 --                     local imports                      --
@@ -62,6 +71,11 @@ instance HasIndex [α] where
   type Elem    [α] = α
   index i xs = atMay xs (fromIntegral i)
 
+instance (Eq α, Hashable α) ⇒ HasIndex (HashMap α β) where
+  type Indexer (HashMap α β) = α
+  type Elem    (HashMap α β) = β
+  index = flip (!?)
+
 --------------------------------------------------------------------------------
 --                                   tests                                    --
 --------------------------------------------------------------------------------
@@ -69,11 +83,11 @@ instance HasIndex [α] where
 tests ∷ TestTree
 tests =
   testGroup "Index"
-            [ testCase "!"     $ Just (13 ∷ ℕ) @=? 6 ! [1,1,2,3,5,8,13,21] 
+            [ testCase "!"     $ Just (13 ∷ ℕ) @=? 6 ! [1,1,2,3,5,8,13,21]
             , testCase "index" $ Just ( 8 ∷ ℕ) @=? index 5 [1,1,2,3,5,8,13,21]
             , testCase "!!"    $ Just (13 ∷ ℕ) @=? [1,1,2,3,5,8,13,21] !! 6
             ]
-                
+
 ----------------------------------------
 
 _test ∷ IO ExitCode
