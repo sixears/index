@@ -10,7 +10,7 @@
 
   };
 
-  outputs = { self, nixpkgs, flake-utils, build-utils
+  outputs = { self, nixpkgs, build-utils
             , more-unicode, tasty-plus }:
     build-utils.lib.hOutputs self nixpkgs "index" {
       deps = {
