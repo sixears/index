@@ -6,7 +6,7 @@
     build-utils.url   = "github:sixears/flake-build-utils/r1.0.0.11";
 
     more-unicode.url  = "github:sixears/more-unicode/r0.0.17.8";
-    tasty-plus.url    = "github:sixears/tasty-plus/r1.5.2.12";
+    tasty-plus.url    = "github:sixears/tasty-plus/r1.5.2.13";
 
   };
 
