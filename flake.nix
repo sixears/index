@@ -6,7 +6,7 @@
     build-utils.url   = github:sixears/flake-build-utils/r1.0.0.13;
 
     more-unicode.url  = github:sixears/more-unicode/r0.0.17.12;
-    tasty-plus.url    = github:sixears/tasty-plus/r1.5.2.23;
+    tasty-plus.url    = github:sixears/tasty-plus/r1.5.2.24;
   };
 
   outputs = { self, nixpkgs, build-utils
@@ -19,7 +19,7 @@
                     }:
         mkDerivation {
           pname = "index";
-          version = "1.0.1.25";
+          version = "1.0.1.26";
           src = ./.;
           libraryHaskellDepends = [
             base base-unicode-symbols hashable safe tasty tasty-hunit
